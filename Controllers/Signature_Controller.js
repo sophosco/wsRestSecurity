@@ -1,5 +1,5 @@
 let Signature = require('../manager/Signature_Manager');
-let keymanager = require('../manager/key_manager');
+let keymanager = require('../manager/Key_Manager');
 exports.GenerateSignature = function (req, res) {
     let response = {
         "responseHeader": {

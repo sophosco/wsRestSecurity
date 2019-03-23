@@ -1,5 +1,5 @@
 let Encrypt = require('../manager/Encrypt_Manager');
-let keymanager = require('../manager/key_manager');
+let keymanager = require('../manager/Key_Manager');
 exports.EncryptData = function (req, res) {
     let response = {
         "responseHeader": {

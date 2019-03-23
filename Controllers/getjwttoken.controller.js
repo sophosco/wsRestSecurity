@@ -43,7 +43,7 @@ exports.getToken = function (req, res) {
 }
 
 exports.verifyToken = function (req, res) {
-      let responseVerifyToken = {
+    let responseVerifyToken = {
         "responseHeader": {
             "responseInfo": {
                 "system": "D07-TS-Securityservices",
@@ -74,5 +74,11 @@ exports.verifyToken = function (req, res) {
 
             res.status(200).json(responseVerifyToken);
         }
+    }, err => {
+        responseVerifyToken.responseHeader.status.code = "01";
+        responseVerifyToken.responseHeader.status.description = err;
+        responseVerifyToken.responsePayload.verify = "";
+
+        res.status(200).json(responseVerifyToken);
     });
 }

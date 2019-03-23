@@ -1,4 +1,4 @@
-let keymanager = require('../manager/key_manager');
+let keymanager = require('../manager/Key_Manager');
 
 exports.GenerateKeyController = function (req, res) {
     let response = {
