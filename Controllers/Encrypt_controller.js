@@ -1,5 +1,5 @@
 let Encrypt = require('../manager/Encrypt_Manager');
-let key_manager = require('../manager/Key_Manager');
+let keymanager = require('../manager/key_manager');
 exports.EncryptData = function (req, res) {
     let response = {
         "responseHeader": {
@@ -17,7 +17,7 @@ exports.EncryptData = function (req, res) {
             "EncryptData": ""
         }
     };
-    key_manager.getkey(req.body.requestPayload.kid).then(key => {
+    keymanager.getkey(req.body.requestPayload.kid).then(key => {
         if (key == null) {
             response.responseHeader.status.code = 500;
             response.responseHeader.status.description = "Key not exist";
@@ -25,8 +25,7 @@ exports.EncryptData = function (req, res) {
         } else {
 
             Encrypt.Encrypt(key, req.body.requestPayload.data).then(data1 => {
-                console.log(data1);
-                if (data1 == null) {
+                   if (data1 == null) {
                     response.responseHeader.status.code = 500;
                     response.responseHeader.status.description = "Not  Encrypt Data";
                     res.status(500).json(response);
@@ -50,7 +49,4 @@ exports.EncryptData = function (req, res) {
         response.responseHeader.status.description = err;
         res.status(500).json(response);
     });
-
-
-
 }

@@ -1,5 +1,5 @@
 let Decrypt = require('../manager/Decrypt_Manager');
-let key_manager = require('../manager/Key_Manager');
+let keymanager = require('../manager/key_manager');
 exports.DecryptData = function (req, res) {
     let response = {
         "responseHeader": {
@@ -17,7 +17,7 @@ exports.DecryptData = function (req, res) {
             "decryptData": ""
         }
     };
-    key_manager.getkey(req.body.requestPayload.kid).then(key => {
+    keymanager.getkey(req.body.requestPayload.kid).then(key => {
         if (key == null) {
             response.responseHeader.status.code = 500;
             response.responseHeader.status.description = "Key not exist";
@@ -25,7 +25,6 @@ exports.DecryptData = function (req, res) {
         } else {
 
             Decrypt.Decrypt(key, req.body.requestPayload.data).then(data1 => {
-                console.log(data1);
                 if (data1 == null) {
                     response.responseHeader.status.code = 500;
                     response.responseHeader.status.description = "Not  decrypt Data";

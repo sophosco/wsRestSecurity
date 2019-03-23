@@ -1,5 +1,5 @@
 let Signature = require('../manager/Signature_Manager');
-let key_manager = require('../manager/Key_Manager');
+let keymanager = require('../manager/key_manager');
 exports.GenerateSignature = function (req, res) {
     let response = {
         "responseHeader": {
@@ -17,7 +17,7 @@ exports.GenerateSignature = function (req, res) {
             "Signature": ""
         }
     };
-    key_manager.getkey(req.body.requestPayload.kid).then(key => {
+    keymanager.getkey(req.body.requestPayload.kid).then(key => {
         if (key == null) {
             response.responseHeader.status.code = 500;
             response.responseHeader.status.description = "Key not exist";
@@ -66,18 +66,18 @@ exports.VerifySignature = function (req, res) {
             "Signature": ""
         }
     };
-    key_manager.getkey(req.body.requestPayload.kid).then(key => {
+    keymanager.getkey(req.body.requestPayload.kid).then(key => {
         if (key == null) {
             response.responseHeader.status.code = 500;
             response.responseHeader.status.description = "Key not exist";
             res.status(500).json(response);
         } else {
             let payload = req.body.requestPayload.signature.payload;
-            let protected = req.body.requestPayload.signature.signatures.protected;
+            let protect = req.body.requestPayload.signature.signatures.protected;
             let signature = req.body.requestPayload.signature.signatures.signature;
-            
-            Signature.vefifysignature(key, payload + "." + protected + "." + signature).then(data1 => {
-                console.log(data1);
+
+            Signature.vefifysignature(key, payload + "." + protect + "." + signature).then(data1 => {
+
                 if (data1 == null) {
                     response.responseHeader.status.code = 500;
                     response.responseHeader.status.description = "Not  Verify Signature";

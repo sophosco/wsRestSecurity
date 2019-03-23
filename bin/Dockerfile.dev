@@ -2,18 +2,6 @@
 
 # Set environment variables for dev
 export APP_ENV=${1:-dev}
-
-# Verify with eslint and generate error if echo error
-verifyEslint() {
-    { #try
-        echo "--> Verifying with eslint"
-        eslint . --ext .js
-    } || { #catch
-        echo "--> Abort by verification eslint"
-        exit 0
-    }
-}
-
 # Verify with unit tests (mocha)
 verifyMocha() {
     { #try
@@ -28,12 +16,10 @@ verifyMocha() {
 echo "--> Execution docker file with environment '$APP_ENV'"
 
 if [ "$APP_ENV" = "dev" ]; then
-        #Verify Eslint
-        verifyEslint
         #Verify Mocha
         verifyMocha
         #Compile docker
-        docker build -t com.idc.d11.services.security/securitymanager .
+        docker build -t com.aval.services.security/securitymanager .
         echo "--> Successful construction of the docker"
 elif [ "$APP_ENV" = "prod" ]; then
         echo "--> It's not exist logic";

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 let jose = require('node-jose');
 exports.Decrypt = function (key, data) {
     return new Promise(function (resolve, reject) {

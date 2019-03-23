@@ -8,6 +8,7 @@ exports.Encrypt = function (key, data) {
                 // {result} is a JSON Object -- JWE using the JSON General Serialization
                 resolve(result);
             }, err => {
+                // eslint-disable-next-line no-console
                 console.error(err);
                 reject(err);
 

@@ -1,18 +1,25 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
 let jose = require('node-jose');
-keystore = jose.JWK.createKeyStore();
+// eslint-disable-next-line no-undef
+
+let keystore = jose.JWK.createKeyStore();
 
 exports.generate_key = function () {
     return new Promise(function (resolve, reject) {
         jose.JWK.createKey("oct", 256).
             then(result => {
-                // {result} is a jose.JWK.Key
-                // {result.keystore} is a unique jose.JWK.KeyStore
+                /*
+                 * {result} is a jose.JWK.Key
+                 * {result.keystore} is a unique jose.JWK.KeyStore
+                 */
+
                 let key = result.toJSON(true);
                 console.log(key);
-                keystore.add(key,"json").
+                keystore.add(key, "json").
                     then(keyadd => {
                         // {result} is a jose.JWK.Key
-                        keysave = keyadd;
+                        let keysave = keyadd;
                         console.log("add keystore", keysave);
                     }, err => {
                         console.log(err);

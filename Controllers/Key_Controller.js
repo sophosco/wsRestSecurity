@@ -1,4 +1,4 @@
-let key_manager = require('../manager/Key_Manager');
+let keymanager = require('../manager/key_manager');
 
 exports.GenerateKeyController = function (req, res) {
     let response = {
@@ -18,7 +18,7 @@ exports.GenerateKeyController = function (req, res) {
         }
     };
 
-    key_manager.generate_key().then(data => {
+    keymanager.generate_key().then(data => {
         if (data == 'undefined' && data.length < 0) {
             response.responseHeader.status.code = 500;
             response.responseHeader.status.description = "Failed Key Generate";
@@ -55,7 +55,7 @@ exports.GetKeyController = function (req, res) {
             "Key": ""
         }
     };
-    key_manager.getkey(req.body.requestPayload.kid).then(data => {
+    keymanager.getkey(req.body.requestPayload.kid).then(data => {
          
         if (data == null) {
             response.responseHeader.status.code = 500;
