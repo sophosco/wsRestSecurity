@@ -37,8 +37,12 @@ exports.verifyToken = (clientId, token) => {
             var ver = jwt.verify(token, publicKEY, signOptions);
             console.log("jwtID:", ver.jwtId.substring(0, 4));
             console.log("clientID:", clientId.toString().substring(0, 4));
-            if ((ver.jwtId.substring(0, 4)) == (clientId.toString().substring(0, 4))) {
+            if (ver) {
                 resolve(true);
+            } else {
+                console.log();
+                reject(false);
+                console.error("erro en validacion")
             }
         } catch (err) {
             console.error(err);

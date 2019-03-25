@@ -60,7 +60,6 @@ exports.verifyToken = function (req, res) {
     };
 
     model.verifyToken(req.body.requestPayload.Id, req.body.requestHeader.token).then(data => {
-
         if (data) {
             responseVerifyToken.responsePayload.verify = data;
             responseVerifyToken.responseHeader.status.code = "00";
