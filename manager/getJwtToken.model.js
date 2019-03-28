@@ -10,7 +10,7 @@ var signOptions = {
     issuer: 'POCAVAL',
     subject: 'SessionToken',
     audience: 'AVAL',
-    expiresIn: '7min',
+    expiresIn: '60min',
     algorithm: 'RS256'
 };
 
