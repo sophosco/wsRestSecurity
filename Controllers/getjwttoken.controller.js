@@ -19,11 +19,13 @@ exports.getToken = function (req, res) {
 
     model.getTokenJWT(req.body.requestPayload.Id).then(data => {
         if (typeof data !== 'undefined' && data.length > 0) {
-
             responseJwtToken.responsePayload.token = data;
             responseJwtToken.responseHeader.status.code = "00";
-            responseJwtToken.responseHeader.status.description = "Success";
-
+            responseJwtToken.responseHeader.status.description = "Success";            
+            res.setHeader(
+                "Access-Control-Allow-Origin", "*",
+                "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
+            );
             res.status(200).json(responseJwtToken);
         } else {
             responseJwtToken.responseHeader.status.code = "405";
@@ -37,7 +39,6 @@ exports.getToken = function (req, res) {
         responseJwtToken.responseHeader.status.code = "405";
         responseJwtToken.responseHeader.status.description = err;
         responseJwtToken.responsePayload.token = {};
-
         res.status(405).json(responseJwtToken);
     });
 }
