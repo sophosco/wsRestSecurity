@@ -6,7 +6,6 @@
     "start": "node ./bin/www",
     "test": "mocha",
     "eslint": "./node_modules/eslint/bin/eslint.js . --ext .js",
-    "build-docker": "sh ./bin/Dockerfile.dev",
     "run-docker": "docker run -p 3000:3000 -d com.aval.services.security/securitymanager"
   },
   "dependencies": {
