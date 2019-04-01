@@ -61,7 +61,7 @@ podTemplate(
 
         container('docker') {
             stage('Build app') {
-                sh 'Dockerfile'
+                sh './Dockerfile'
             }
             stage('Create image') {
                 docker.withRegistry("$REGISTRY_URL", "ecr:us-east-2:aws") {
