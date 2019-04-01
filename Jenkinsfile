@@ -13,10 +13,8 @@ podTemplate(
         ),
         containerTemplate(
             name: 'node',
-            image: 'node:8.12.0-alpine',
-            workingDir: '/home/jenkins',
-            ttyEnabled: true,
-            privileged: true,
+            image: 'node:8.12.0-alpine',            
+            ttyEnabled: true,            
             command: 'cat'
         ),
         containerTemplate(
