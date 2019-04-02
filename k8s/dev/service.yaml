@@ -7,8 +7,10 @@ spec:
   ports:
     - name: http
       port: 3000
+      protocol: TCP
     - name: https
       port: 443
+      protocol: TCP
   type: LoadBalancer    
   selector:
     app: wsrestsecurity
