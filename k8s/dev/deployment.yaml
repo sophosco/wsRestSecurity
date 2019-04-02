@@ -24,8 +24,10 @@ spec:
               cpu: "200m"
           imagePullPolicy: Always
           ports:
-          - containerPort: 3000
-          - containerPort: 443
+          - name: http
+            containerPort: 3000
+          - name: https
+            containerPort: 443
           envFrom:
           - configMapRef:
               name: wsrestsecurity-configmap
