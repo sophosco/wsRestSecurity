@@ -15,6 +15,7 @@ spec:
     - port: 443
       name: https
       targetPort: ed-port
+      protocol: https
   type: LoadBalancer    
   selector:
     app: wsrestsecurity
