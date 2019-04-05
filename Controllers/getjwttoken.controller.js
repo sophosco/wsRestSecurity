@@ -59,7 +59,7 @@ exports.verifyToken = function (req, res) {
             "verify": false
         }
     };
-
+    console.log(req.body);
     model.verifyToken(req.body.requestPayload.Id, req.body.requestHeader.token).then(data => {
         if (data) {
             responseVerifyToken.responsePayload.verify = data;
