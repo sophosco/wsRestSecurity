@@ -16,7 +16,7 @@ exports.getToken = function (req, res) {
             "token": {}
         }
     };
-
+    console.log(req);
     model.getTokenJWT(req.body.requestPayload.Id).then(data => {
         if (typeof data !== 'undefined' && data.length > 0) {
             responseJwtToken.responsePayload.token = data;
@@ -26,15 +26,14 @@ exports.getToken = function (req, res) {
                 "Access-Control-Allow-Origin", "*",
                 "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
             );
+            console.log(responseJwtToken);
             res.status(200).json(responseJwtToken);
         } else {
             responseJwtToken.responseHeader.status.code = "405";
             responseJwtToken.responseHeader.status.description = "Not Generate token";
             responseJwtToken.responsePayload.token = {};
-
             res.status(405).json(responseJwtToken);
         }
-
     }, err => {
         responseJwtToken.responseHeader.status.code = "405";
         responseJwtToken.responseHeader.status.description = err;
@@ -65,13 +64,11 @@ exports.verifyToken = function (req, res) {
             responseVerifyToken.responsePayload.verify = data;
             responseVerifyToken.responseHeader.status.code = "00";
             responseVerifyToken.responseHeader.status.description = "Success";
-
             res.status(200).json(responseVerifyToken);
         } else {
             responseVerifyToken.responseHeader.status.code = "01";
             responseVerifyToken.responseHeader.status.description = "Invalid JWT validation";
             responseVerifyToken.responsePayload.verify = data;
-
             res.status(200).json(responseVerifyToken);
         }
     }, err => {
