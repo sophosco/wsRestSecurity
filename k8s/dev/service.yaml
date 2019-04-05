@@ -11,11 +11,9 @@ spec:
   ports:
     - port: 3000
       name: http
-      targetPort: ed-port
       protocol: TCP
     - port: 443
       name: https
-      targetPort: ed-port
       protocol: TCP
   type: LoadBalancer    
   selector:
