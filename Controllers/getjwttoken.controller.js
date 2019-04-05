@@ -16,8 +16,7 @@ exports.getToken = function (req, res) {
             "token": {}
         }
     };
-    console.log(req);
-    model.getTokenJWT(req.body.requestPayload.Id).then(data => {
+     model.getTokenJWT(req.body.requestPayload.Id).then(data => {
         if (typeof data !== 'undefined' && data.length > 0) {
             responseJwtToken.responsePayload.token = data;
             responseJwtToken.responseHeader.status.code = "00";
@@ -25,8 +24,7 @@ exports.getToken = function (req, res) {
             res.setHeader(
                 "Access-Control-Allow-Origin", "*",
                 "Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"
-            );
-            console.log(responseJwtToken);
+            );            
             res.status(200).json(responseJwtToken);
         } else {
             responseJwtToken.responseHeader.status.code = "405";
