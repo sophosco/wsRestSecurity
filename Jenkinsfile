@@ -18,6 +18,12 @@ podTemplate(
             command: 'cat'
         ),
         containerTemplate(
+            name: 'maven',
+            image: 'maven:alpine',
+            ttyEnabled: true,
+            command: 'cat'
+        ),
+        containerTemplate(
             name: 'kubectl', 
             image: 'lachlanevenson/k8s-kubectl:latest', 
             command: 'cat', 
@@ -52,13 +58,14 @@ podTemplate(
                 sh 'npm test'
             }
         }//node
-
-        container('docker') {
+        
+        container('maven') {
             stage('Scann Code') {
-                sh 'apk add openjdk8-jre'
                 sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube:9000 -DskipTests=true -Dsonar.projectKey=$SERVICENAME -Dsonar.projectName=$SERVICENAME"
             }
-            
+        }//maven
+
+        container('docker') {
             stage('Create image') {
                 docker.withRegistry("$REGISTRY_URL", "ecr:us-east-2:aws") {
                     image = docker.build("$IMAGETAG")
