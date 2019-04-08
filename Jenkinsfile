@@ -51,16 +51,14 @@ podTemplate(
             stage('Test app') {
                 sh 'npm test'
             }
-            stage('Scann Code') {
-                def scannerHome = tool 'SonarScanner';
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-
         }//node
 
         container('docker') {
+            stage('Scann Code') {
+                sh 'apk add openjdk8-jre'
+                sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube:9000 -DskipTests=true -Dsonar.projectKey=$SERVICENAME -Dsonar.projectName=$SERVICENAME"
+            }
+            
             stage('Create image') {
                 docker.withRegistry("$REGISTRY_URL", "ecr:us-east-2:aws") {
                     image = docker.build("$IMAGETAG")
