@@ -18,12 +18,6 @@ podTemplate(
             command: 'cat'
         ),
         containerTemplate(
-            name: 'maven',
-            image: 'maven:alpine',
-            ttyEnabled: true,
-            command: 'cat'
-        ),
-        containerTemplate(
             name: 'kubectl', 
             image: 'lachlanevenson/k8s-kubectl:latest', 
             command: 'cat', 
@@ -59,11 +53,12 @@ podTemplate(
             }
         }//node
         
-        /*container('maven') {
-            stage('Scann Code') {
-                sh "mvn sonar:sonar -Dsonar.host.url=http://sonarqube-sonarqube:9000 -DskipTests=true -Dsonar.projectKey=$SERVICENAME -Dsonar.projectName=$SERVICENAME"
+        stage('Scann code') {
+            def scannerHome = tool 'SonarScanner';
+            withSonarQubeEnv('SonarQube') {
+                sh "${scannerHome}/bin/sonar-scanner"
             }
-        }*///maven
+        }
 
         container('docker') {
             stage('Create image') {
