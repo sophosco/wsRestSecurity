@@ -48,8 +48,13 @@ podTemplate(
             stage('Install dependencies') {
                 sh 'npm install'
             }
-            stage('Test app') {
-                sh 'npm test'
+            stage('Test app'){
+                try {
+                    sh 'npm test'
+                }
+                finally {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
             }
         }//node
         
